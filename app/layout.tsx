@@ -48,8 +48,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <StoreProvider>
           <Preloader />
           <ScrollProgress />
-          <AnnouncementBar />
-          <Header />
+          {/* Fixed Sticky Top Navigation (Announcement Bar + Header pinned at top of viewport) */}
+          <div className="sticky top-0 z-50 w-full bg-[#FAF6F0]">
+            <AnnouncementBar />
+            <Header />
+          </div>
           <main className="pb-16 md:pb-0 min-h-[60vh]">{children}</main>
           <BrandBanner />
           <Footer />

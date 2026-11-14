@@ -21,17 +21,6 @@ function Count({ n }: { n: number }) {
   );
 }
 
-const navCategories = [
-  { name: 'New In', href: '/collections/new-arrivals' },
-  { name: 'Earrings', href: '/collections/earrings' },
-  { name: 'Necklaces', href: '/collections/necklaces' },
-  { name: 'Rings', href: '/collections/rings' },
-  { name: 'Bracelets', href: '/collections/bracelets' },
-  { name: 'Sets', href: '/collections/jewellery-sets' },
-  { name: 'Festive', href: '/collections/festive' },
-  { name: 'Offers', href: '/collections/offers', highlight: true },
-];
-
 export default function Header() {
   const {
     count,
@@ -52,61 +41,29 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-gold/25 bg-[#FAF6F0]/95 backdrop-blur-md shadow-[0_2px_15px_rgba(0,0,0,0.03)]">
-        <div className="container-x flex h-[72px] sm:h-[76px] items-center justify-between lg:h-[84px] gap-4">
-          {/* Left: Mobile Hamburger OR Desktop Logo */}
-          <div className="flex items-center gap-3">
+      <header className="border-b border-gold/25 bg-[#FAF6F0]/95 backdrop-blur-md">
+        <div className="container-x relative flex h-[70px] sm:h-[76px] md:h-[84px] items-center justify-between">
+          {/* Left: Hamburger Menu Button + Categories Label */}
+          <div className="flex items-center">
             <button
               onClick={openDrawer}
               aria-label="Open menu drawer"
-              className="grid h-10 w-10 place-items-center rounded-full text-burgundy transition hover:bg-gold/10 lg:hidden"
+              className="flex items-center gap-2 rounded-full p-2 text-burgundy transition hover:bg-gold/10 hover:text-gold-dark"
             >
               <Menu size={24} strokeWidth={1.8} />
+              <span className="hidden sm:inline-block text-xs font-semibold uppercase tracking-wider text-charcoal/80 hover:text-burgundy">
+                Categories
+              </span>
             </button>
-
-            {/* Desktop Brand Logo */}
-            <div className="hidden lg:block shrink-0">
-              <Logo size={38} align="left" />
-            </div>
           </div>
 
-          {/* Mobile Centered Brand Logo */}
-          <div className="lg:hidden flex items-center justify-center">
-            <Logo size={34} align="center" className="scale-95 sm:scale-100" />
+          {/* Center: Brand Logo (strictly centered on both desktop & mobile) */}
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
+            <Logo size={36} align="center" className="scale-95 sm:scale-100" />
           </div>
 
-          {/* Center: Desktop Horizontal Category Navigation */}
-          <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
-            {navCategories.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`text-[12px] xl:text-[13px] font-medium tracking-[0.12em] uppercase transition-colors relative py-1.5 ${
-                  item.highlight
-                    ? 'text-burgundy font-semibold hover:text-gold-dark'
-                    : 'text-charcoal/80 hover:text-burgundy'
-                }`}
-              >
-                {item.name}
-                {item.highlight && (
-                  <span className="ml-1.5 inline-block rounded-full bg-gold/25 px-1.5 py-0.5 text-[9px] font-bold text-burgundy tracking-normal">
-                    SALE
-                  </span>
-                )}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Right Side: Desktop Categories Button, Search, Wishlist, Account, Cart */}
-          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-            {/* Desktop "All Categories" Drawer Button */}
-            <button
-              onClick={openDrawer}
-              className="hidden 2xl:inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-charcoal hover:bg-gold/10 hover:text-burgundy transition shadow-sm mr-1"
-            >
-              <Menu size={14} /> Categories
-            </button>
-
+          {/* Right Side: Search, Account, Wishlist, Cart */}
+          <div className="flex items-center gap-1 sm:gap-2">
             {/* Search Button */}
             <button
               onClick={openSearch}
@@ -116,17 +73,6 @@ export default function Header() {
             >
               <Search size={21} strokeWidth={1.8} />
             </button>
-
-            {/* Wishlist Link */}
-            <Link
-              href="/wishlist"
-              className={`${iconBtn} hidden sm:grid`}
-              aria-label="Wishlist"
-              title="Saved items"
-            >
-              <Heart size={21} strokeWidth={1.8} />
-              <Count n={wishlist.length} />
-            </Link>
 
             {/* Account Icon with VIP Sparkle Badge */}
             <div
@@ -221,6 +167,17 @@ export default function Header() {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Wishlist Link */}
+            <Link
+              href="/wishlist"
+              className={`${iconBtn} hidden sm:grid`}
+              aria-label="Wishlist"
+              title="Saved items"
+            >
+              <Heart size={21} strokeWidth={1.8} />
+              <Count n={wishlist.length} />
+            </Link>
 
             {/* Cart Button */}
             <button
