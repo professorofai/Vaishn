@@ -14,7 +14,7 @@ function Count({ n }: { n: number }) {
       key={n}
       initial={{ scale: 1.8 }}
       animate={{ scale: 1 }}
-      className="absolute -right-1 -top-1 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-gold px-1 text-[10px] font-bold text-white shadow-sm"
+      className="absolute -right-1 -top-1 grid h-[17px] min-w-[17px] sm:h-[18px] sm:min-w-[18px] place-items-center rounded-full bg-gold px-1 text-[9px] sm:text-[10px] font-bold text-white shadow-sm"
     >
       {n}
     </motion.span>
@@ -36,57 +36,57 @@ export default function Header() {
   } = useStore();
   const [acct, setAcct] = useState(false);
 
-  const iconBtn =
-    'relative grid h-10 w-10 place-items-center rounded-full text-burgundy transition hover:bg-gold/10 hover:text-gold-dark';
-
   return (
     <>
       <header className="border-b border-gold/25 bg-[#FAF6F0]/95 backdrop-blur-md">
-        <div className="container-x relative flex h-[70px] sm:h-[76px] md:h-[84px] items-center justify-between">
-          {/* Left: Hamburger Menu Button + Categories Label */}
-          <div className="flex items-center">
+        <div className="mx-auto flex h-[58px] sm:h-[68px] md:h-[76px] items-center justify-between px-2.5 sm:px-6 md:px-8 max-w-[1600px]">
+          {/* Left: Hamburger Menu Button + Categories Label (Symmetric width to right) */}
+          <div className="flex items-center justify-start w-[88px] sm:w-[130px] md:w-[150px] shrink-0">
             <button
               onClick={openDrawer}
               aria-label="Open menu drawer"
-              className="flex items-center gap-2 rounded-full p-2 text-burgundy transition hover:bg-gold/10 hover:text-gold-dark"
+              className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-full text-burgundy transition hover:bg-gold/10 hover:text-gold-dark"
             >
-              <Menu size={24} strokeWidth={1.8} />
-              <span className="hidden sm:inline-block text-xs font-semibold uppercase tracking-wider text-charcoal/80 hover:text-burgundy">
-                Categories
-              </span>
+              <Menu size={20} strokeWidth={1.8} className="sm:hidden" />
+              <Menu size={22} strokeWidth={1.8} className="hidden sm:block" />
             </button>
+            <span
+              onClick={openDrawer}
+              className="hidden sm:inline-block ml-1.5 text-xs font-semibold uppercase tracking-wider text-charcoal/80 hover:text-burgundy cursor-pointer select-none"
+            >
+              Categories
+            </span>
           </div>
 
-          {/* Center: Brand Logo (strictly centered on both desktop & mobile) */}
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
-            <Logo size={36} align="center" className="scale-95 sm:scale-100" />
+          {/* Center: Brand Logo (Naturally centered in flex layout, physically separated from buttons) */}
+          <div className="flex-1 flex items-center justify-center min-w-0 px-1 overflow-hidden">
+            <Logo size={32} align="center" />
           </div>
 
           {/* Right Side: Search, Account, Wishlist, Cart */}
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center justify-end gap-0.5 sm:gap-1.5 w-[88px] sm:w-[130px] md:w-[150px] shrink-0">
             {/* Search Button */}
             <button
               onClick={openSearch}
               aria-label="Search jewellery"
-              className={iconBtn}
+              className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-full text-burgundy transition hover:bg-gold/10 hover:text-gold-dark"
               title="Search jewellery"
             >
-              <Search size={21} strokeWidth={1.8} />
+              <Search size={18} strokeWidth={1.8} className="sm:hidden" />
+              <Search size={20} strokeWidth={1.8} className="hidden sm:block" />
             </button>
 
             {/* Account Icon with VIP Sparkle Badge */}
-            <div
-              className="relative"
-              onMouseLeave={() => setAcct(false)}
-            >
+            <div className="relative" onMouseLeave={() => setAcct(false)}>
               <button
-                className={iconBtn}
+                className="relative grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-full text-burgundy transition hover:bg-gold/10 hover:text-gold-dark"
                 aria-label="My Account"
                 onClick={() => setAcct(!acct)}
               >
-                <User size={21} strokeWidth={1.8} />
+                <User size={18} strokeWidth={1.8} className="sm:hidden" />
+                <User size={20} strokeWidth={1.8} className="hidden sm:block" />
                 <span className="absolute -bottom-0.5 -right-0.5 text-gold-dark">
-                  <Sparkles size={11} className="fill-gold text-gold" />
+                  <Sparkles size={10} className="fill-gold text-gold" />
                 </span>
               </button>
 
@@ -168,32 +168,33 @@ export default function Header() {
               </AnimatePresence>
             </div>
 
-            {/* Wishlist Link */}
+            {/* Wishlist Link (Hidden on mobile header, available in bottom nav / drawer) */}
             <Link
               href="/wishlist"
-              className={`${iconBtn} hidden sm:grid`}
+              className="relative hidden sm:grid h-9 w-9 place-items-center rounded-full text-burgundy transition hover:bg-gold/10 hover:text-gold-dark"
               aria-label="Wishlist"
               title="Saved items"
             >
-              <Heart size={21} strokeWidth={1.8} />
+              <Heart size={20} strokeWidth={1.8} />
               <Count n={wishlist.length} />
             </Link>
 
-            {/* Cart Button */}
+            {/* Shopping Bag Button */}
             <button
-              className={iconBtn}
               onClick={openCart}
-              aria-label="Shopping bag"
-              title="Shopping bag"
+              aria-label="Shopping Cart"
+              className="relative grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-full text-burgundy transition hover:bg-gold/10 hover:text-gold-dark"
+              title="Cart"
             >
-              <ShoppingBag size={21} strokeWidth={1.8} />
+              <ShoppingBag size={18} strokeWidth={1.8} className="sm:hidden" />
+              <ShoppingBag size={20} strokeWidth={1.8} className="hidden sm:block" />
               <Count n={count} />
             </button>
           </div>
         </div>
       </header>
 
-      {/* Slide-out Left Drawer */}
+      {/* Slide-out Navigation & Account Drawer */}
       <NavDrawer isOpen={drawerOpen} onClose={closeDrawer} />
     </>
   );
