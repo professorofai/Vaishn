@@ -21,8 +21,30 @@ function Count({ n }: { n: number }) {
   );
 }
 
+const navCategories = [
+  { name: 'New In', href: '/collections/new-arrivals' },
+  { name: 'Earrings', href: '/collections/earrings' },
+  { name: 'Necklaces', href: '/collections/necklaces' },
+  { name: 'Rings', href: '/collections/rings' },
+  { name: 'Bracelets', href: '/collections/bracelets' },
+  { name: 'Sets', href: '/collections/jewellery-sets' },
+  { name: 'Festive', href: '/collections/festive' },
+  { name: 'Offers', href: '/collections/offers', highlight: true },
+];
+
 export default function Header() {
-  const { count, wishlist, openCart, openSearch, user, logout, walletBalance, drawerOpen, openDrawer, closeDrawer } = useStore();
+  const {
+    count,
+    wishlist,
+    openCart,
+    openSearch,
+    user,
+    logout,
+    walletBalance,
+    drawerOpen,
+    openDrawer,
+    closeDrawer,
+  } = useStore();
   const [acct, setAcct] = useState(false);
 
   const iconBtn =
@@ -30,27 +52,62 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-gold/20 bg-ivory/95 backdrop-blur-md">
-        <div className="container-x relative flex h-[70px] sm:h-[76px] items-center justify-between md:h-[84px]">
-          {/* Left Side: Hamburger Menu Button */}
-          <div className="flex items-center">
+      <header className="sticky top-0 z-40 border-b border-gold/25 bg-[#FAF6F0]/95 backdrop-blur-md shadow-[0_2px_15px_rgba(0,0,0,0.03)]">
+        <div className="container-x flex h-[72px] sm:h-[76px] items-center justify-between lg:h-[84px] gap-4">
+          {/* Left: Mobile Hamburger OR Desktop Logo */}
+          <div className="flex items-center gap-3">
             <button
               onClick={openDrawer}
               aria-label="Open menu drawer"
-              className={iconBtn}
+              className="grid h-10 w-10 place-items-center rounded-full text-burgundy transition hover:bg-gold/10 lg:hidden"
             >
               <Menu size={24} strokeWidth={1.8} />
             </button>
+
+            {/* Desktop Brand Logo */}
+            <div className="hidden lg:block shrink-0">
+              <Logo size={38} align="left" />
+            </div>
           </div>
 
-          {/* Center: Logo and Brand Name with Tagline (strictly centered) */}
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
-            <Logo size={36} className="scale-95 sm:scale-100" />
+          {/* Mobile Centered Brand Logo */}
+          <div className="lg:hidden flex items-center justify-center">
+            <Logo size={34} align="center" className="scale-95 sm:scale-100" />
           </div>
 
-          {/* Right Side: Search, Account, Wishlist, Cart */}
-          <div className="flex items-center gap-1 sm:gap-2">
-            {/* Search Button (triggers search overlay) */}
+          {/* Center: Desktop Horizontal Category Navigation */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
+            {navCategories.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`text-[12px] xl:text-[13px] font-medium tracking-[0.12em] uppercase transition-colors relative py-1.5 ${
+                  item.highlight
+                    ? 'text-burgundy font-semibold hover:text-gold-dark'
+                    : 'text-charcoal/80 hover:text-burgundy'
+                }`}
+              >
+                {item.name}
+                {item.highlight && (
+                  <span className="ml-1.5 inline-block rounded-full bg-gold/25 px-1.5 py-0.5 text-[9px] font-bold text-burgundy tracking-normal">
+                    SALE
+                  </span>
+                )}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Right Side: Desktop Categories Button, Search, Wishlist, Account, Cart */}
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+            {/* Desktop "All Categories" Drawer Button */}
+            <button
+              onClick={openDrawer}
+              className="hidden 2xl:inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-charcoal hover:bg-gold/10 hover:text-burgundy transition shadow-sm mr-1"
+            >
+              <Menu size={14} /> Categories
+            </button>
+
+            {/* Search Button */}
             <button
               onClick={openSearch}
               aria-label="Search jewellery"
@@ -60,6 +117,17 @@ export default function Header() {
               <Search size={21} strokeWidth={1.8} />
             </button>
 
+            {/* Wishlist Link */}
+            <Link
+              href="/wishlist"
+              className={`${iconBtn} hidden sm:grid`}
+              aria-label="Wishlist"
+              title="Saved items"
+            >
+              <Heart size={21} strokeWidth={1.8} />
+              <Count n={wishlist.length} />
+            </Link>
+
             {/* Account Icon with VIP Sparkle Badge */}
             <div
               className="relative"
@@ -68,7 +136,6 @@ export default function Header() {
               <button
                 className={iconBtn}
                 aria-label="My Account"
-                onMouseEnter={() => setAcct(true)}
                 onClick={() => setAcct(!acct)}
               >
                 <User size={21} strokeWidth={1.8} />
@@ -154,17 +221,6 @@ export default function Header() {
                 )}
               </AnimatePresence>
             </div>
-
-            {/* Wishlist Link (accessible on desktop; on mobile available in drawer and bottom nav) */}
-            <Link
-              href="/wishlist"
-              className={`${iconBtn} hidden sm:grid`}
-              aria-label="Wishlist"
-              title="Saved items"
-            >
-              <Heart size={21} strokeWidth={1.8} />
-              <Count n={wishlist.length} />
-            </Link>
 
             {/* Cart Button */}
             <button

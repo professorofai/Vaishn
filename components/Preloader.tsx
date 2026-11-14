@@ -16,6 +16,7 @@ export default function Preloader() {
             <img src="/logo.jpg" alt="VAISHN" className="h-32 w-32 object-contain md:h-40 md:w-40" style={{ mixBlendMode: 'multiply' }} />
           </motion.div>
           <motion.p initial={{ opacity: 0, letterSpacing: '0.1em' }} animate={{ opacity: 1, letterSpacing: '0.5em' }} transition={{ delay: 0.5, duration: 1.2 }} className="mt-4 font-display text-3xl font-semibold text-burgundy">VAISHN</motion.p>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 0.8 }} className="mt-1 font-serif text-xs italic tracking-wider text-gold-dark">Shine in your own way</motion.p>
           <div className="mt-6 h-px w-40 overflow-hidden bg-gold/30"><motion.div className="h-full bg-gold" initial={{ x: '-100%' }} animate={{ x: 0 }} transition={{ duration: 1.7, ease: 'easeInOut' }} /></div>
         </motion.div>
       )}
