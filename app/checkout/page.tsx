@@ -309,6 +309,8 @@ export default function CheckoutPage() {
                   <input
                     type="text"
                     required
+                    autoComplete="name"
+                    enterKeyHint="next"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Aryan Pandey"
@@ -319,7 +321,10 @@ export default function CheckoutPage() {
                   <label className="block text-xs font-semibold text-charcoal mb-1">Mobile Number (for Shiprocket OTP) *</label>
                   <input
                     type="tel"
+                    inputMode="tel"
                     required
+                    autoComplete="tel"
+                    enterKeyHint="next"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+91 98765 43210"
@@ -332,6 +337,12 @@ export default function CheckoutPage() {
                 <label className="block text-xs font-semibold text-charcoal mb-1">Email (for Invoice & Receipt)</label>
                 <input
                   type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  spellCheck={false}
+                  enterKeyHint="next"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="e.g. aryan@vaishn.in"
@@ -357,6 +368,10 @@ export default function CheckoutPage() {
                     <label className="block text-xs font-semibold text-charcoal mb-1">PIN Code *</label>
                     <input
                       type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      autoComplete="postal-code"
+                      enterKeyHint="next"
                       maxLength={6}
                       required
                       value={pincode}
@@ -370,6 +385,8 @@ export default function CheckoutPage() {
                     <input
                       type="text"
                       required
+                      autoComplete="address-level2"
+                      enterKeyHint="next"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
                       className="w-full rounded-xl border border-gold/30 bg-[#FAF6F0] px-3.5 py-2.5 text-sm text-charcoal outline-none focus:border-burgundy focus:bg-white transition"
@@ -384,6 +401,8 @@ export default function CheckoutPage() {
                   <input
                     type="text"
                     required
+                    autoComplete="street-address"
+                    enterKeyHint="next"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     placeholder="e.g. Flat 402, Royale Crest, High Street"
@@ -397,6 +416,8 @@ export default function CheckoutPage() {
                     <input
                       type="text"
                       required
+                      autoComplete="address-level1"
+                      enterKeyHint="done"
                       value={state}
                       onChange={(e) => setState(e.target.value)}
                       className="w-full rounded-xl border border-gold/30 bg-[#FAF6F0] px-3.5 py-2.5 text-sm text-charcoal outline-none focus:border-burgundy focus:bg-white transition"
@@ -612,6 +633,9 @@ export default function CheckoutPage() {
                         value={couponInput}
                         onChange={(e) => setCouponInput(e.target.value)}
                         placeholder="Coupon (e.g. VAISHN10)"
+                        autoCapitalize="characters"
+                        autoCorrect="off"
+                        spellCheck={false}
                         className="flex-1 rounded-xl border border-gold/30 bg-[#FAF6F0] px-3 py-2 text-xs uppercase outline-none focus:border-burgundy"
                       />
                       <button

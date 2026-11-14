@@ -72,16 +72,40 @@ const sparkles = [
 
 export default function Hero() {
   const [i, setI] = useState(0);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   useEffect(() => {
     const t = setInterval(() => setI((x) => (x + 1) % slides.length), 7500);
     return () => clearInterval(t);
   }, []);
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 45) {
+      if (diff > 0) {
+        setI((prev) => (prev + 1) % slides.length);
+      } else {
+        setI((prev) => (prev + slides.length - 1) % slides.length);
+      }
+    }
+    setTouchStartX(null);
+  };
+
   const s = slides[i];
 
   return (
-    <section className="relative overflow-hidden" aria-roledescription="carousel">
+    <section
+      className="relative overflow-hidden select-none"
+      aria-roledescription="carousel"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <AnimatePresence mode="wait">
         <motion.div
           key={i}

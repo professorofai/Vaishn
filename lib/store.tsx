@@ -55,6 +55,7 @@ interface Ctx {
   recent: string[]; viewed: (id: string) => void;
   cartOpen: boolean; openCart: () => void; closeCart: () => void;
   searchOpen: boolean; openSearch: () => void; closeSearch: () => void;
+  drawerOpen: boolean; openDrawer: () => void; closeDrawer: () => void;
   
   // User Profile & Authentication
   user: UserProfile | null;
@@ -102,6 +103,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     setCart(read('vaishn-cart', []));
@@ -145,8 +147,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [cart, wishlist, recent, coupon, user, walletBalance, orders, ready]);
 
   useEffect(() => {
-    document.body.style.overflow = cartOpen || searchOpen ? 'hidden' : '';
-  }, [cartOpen, searchOpen]);
+    document.body.style.overflow = cartOpen || searchOpen || drawerOpen ? 'hidden' : '';
+  }, [cartOpen, searchOpen, drawerOpen]);
 
   const add = useCallback((id: string, variant?: Tone, qty = 1, open = true) => {
     const p = byId(id); if (!p) return; const v = variant ?? p.tone;
@@ -265,6 +267,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       searchOpen,
       openSearch: () => setSearchOpen(true),
       closeSearch: () => setSearchOpen(false),
+      drawerOpen,
+      openDrawer: () => setDrawerOpen(true),
+      closeDrawer: () => setDrawerOpen(false),
       user,
       login,
       logout,
@@ -281,6 +286,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     recent,
     cartOpen,
     searchOpen,
+    drawerOpen,
     user,
     walletBalance,
     orders,

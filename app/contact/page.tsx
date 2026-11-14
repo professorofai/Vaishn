@@ -144,6 +144,7 @@ export default function ContactPage() {
                       <input
                         type="text"
                         required
+                        autoComplete="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="e.g. Ananya Sharma"
@@ -154,6 +155,9 @@ export default function ContactPage() {
                       <label className="block text-xs font-semibold text-charcoal mb-1">Email Address *</label>
                       <input
                         type="email"
+                        inputMode="email"
+                        autoComplete="email"
+                        autoCapitalize="none"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -168,6 +172,8 @@ export default function ContactPage() {
                       <label className="block text-xs font-semibold text-charcoal mb-1">Phone Number</label>
                       <input
                         type="tel"
+                        inputMode="tel"
+                        autoComplete="tel"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="+91 98765 43210"

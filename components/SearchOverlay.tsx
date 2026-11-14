@@ -25,7 +25,17 @@ export default function SearchOverlay() {
             <div className="container-x py-5 md:py-7">
               <div className="flex items-center gap-3 border-b-2 border-burgundy pb-3">
                 <Search className="text-burgundy" size={22} />
-                <input ref={ref} value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search for earrings, kundan, mangalsutra…" className="w-full bg-transparent font-display text-xl text-charcoal outline-none placeholder:text-charcoal/40 md:text-3xl" />
+                <input
+                  ref={ref}
+                  type="search"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  enterKeyHint="search"
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                  placeholder="Search earrings, necklaces, kundan…"
+                  className="w-full bg-transparent font-display text-xl text-charcoal outline-none placeholder:text-charcoal/40 md:text-3xl"
+                />
                 <button onClick={closeSearch} aria-label="Close search" className="grid h-9 w-9 shrink-0 place-items-center rounded-full hover:bg-burgundy/10"><X size={22} /></button>
               </div>
               {!q.trim() ? (

@@ -756,10 +756,16 @@ export default function NavDrawer({ isOpen, onClose }: Props) {
               )}
             </div>
 
-            {/* 3. Bottom Footer */}
-            <div className="border-t border-gold/20 bg-[#F6EFE5] py-3.5 text-center">
+            {/* 3. Bottom Footer (with safe-area bottom for iOS home bar) */}
+            <div
+              className="border-t border-gold/20 bg-[#F6EFE5] px-4 py-3.5 text-center"
+              style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 14px)' }}
+            >
               <p className="font-serif text-xs italic text-charcoal/80">
-                Shine In Your Own Way · Vaishn Fashion LLP
+                Shine In Your Own Way
+              </p>
+              <p className="text-[11px] font-medium tracking-wider text-charcoal/60 mt-0.5">
+                VAISHN Fashion Jewellery
               </p>
             </div>
           </motion.aside>

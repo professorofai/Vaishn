@@ -138,6 +138,7 @@ export default function ProductView({
   const [tone, setTone] = useState<Tone>(p.tone);
   const [qty, setQty] = useState(1);
   const [img, setImg] = useState(0);
+  const [mobileImg, setMobileImg] = useState(0);
   const [zoom, setZoom] = useState<{ x: number; y: number } | null>(null);
   const [pin, setPin] = useState('');
   const [pinMsg, setPinMsg] = useState<{ ok: boolean; t: string } | null>(null);
@@ -202,16 +203,45 @@ export default function ProductView({
         {/* Left Column: Gallery + Delivery Details & Trust Badges */}
         <div>
           {/* Mobile swipe gallery */}
-          <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory overflow-x-auto md:hidden">
+          <div
+            className="no-scrollbar -mx-4 flex snap-x snap-mandatory overflow-x-auto md:hidden"
+            onScroll={(e) => {
+              const el = e.currentTarget;
+              if (el.clientWidth > 0) {
+                const idx = Math.round(el.scrollLeft / el.clientWidth);
+                if (idx !== mobileImg && idx >= 0 && idx < views.length) {
+                  setMobileImg(idx);
+                }
+              }
+            }}
+          >
             {views.map((v) => (
-              <div key={v} className="aspect-[4/5] w-full shrink-0 snap-center">
+              <div
+                key={v}
+                id={`mobile-pimg-${v}`}
+                className="aspect-[4/5] w-full shrink-0 snap-center"
+              >
                 <ProductImage product={p} view={v} tone={tone} />
               </div>
             ))}
           </div>
-          <p className="mt-2 text-center text-xs text-charcoal/50 md:hidden">
-            Swipe to see more →
-          </p>
+          {/* Mobile swipe dots */}
+          <div className="mt-3 flex items-center justify-center gap-2 md:hidden">
+            {views.map((v) => (
+              <button
+                key={v}
+                onClick={() => {
+                  setMobileImg(v);
+                  const el = document.getElementById(`mobile-pimg-${v}`);
+                  el?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }}
+                aria-label={`View image ${v + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  mobileImg === v ? 'w-6 bg-burgundy' : 'w-2 bg-gold/40'
+                }`}
+              />
+            ))}
+          </div>
 
           {/* Desktop gallery */}
           <div className="hidden gap-4 md:flex">
@@ -634,6 +664,51 @@ export default function ProductView({
           </div>
         </section>
       )}
+
+      {/* Sticky Mobile Purchase Bar (iOS & Android thumb-action zone) */}
+      <div
+        className="fixed bottom-0 inset-x-0 z-40 md:hidden border-t border-gold/30 bg-white/95 backdrop-blur-md px-3.5 py-2.5 shadow-[0_-4px_25px_rgba(0,0,0,0.08)] flex items-center justify-between gap-2.5"
+        style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 8px)' }}
+      >
+        <div className="min-w-0 pr-1">
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-base font-bold text-burgundy">{formatPrice(p.price)}</span>
+            <span className="text-[11px] text-charcoal/45 line-through">{formatPrice(p.mrp)}</span>
+          </div>
+          <p className="text-[10px] font-semibold text-gold-dark truncate">{p.name}</p>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={() => toggleWish(p.id)}
+            aria-label="Toggle wishlist"
+            className="grid h-10 w-10 place-items-center rounded-xl border border-gold/40 text-burgundy active:scale-95 transition"
+          >
+            <Heart size={18} className={wished ? 'fill-burgundy' : ''} />
+          </button>
+          <button
+            disabled={out}
+            onClick={addNow}
+            className="btn-burgundy !py-2.5 !px-3.5 text-xs font-semibold whitespace-nowrap active:scale-95 transition disabled:opacity-40"
+          >
+            {added ? (
+              <span className="flex items-center gap-1"><Check size={14} /> Added</span>
+            ) : (
+              'Add to Cart'
+            )}
+          </button>
+          <button
+            disabled={out}
+            onClick={() => {
+              add(p.id, tone, qty, false);
+              router.push('/checkout');
+            }}
+            className="btn-gold !py-2.5 !px-3.5 text-xs font-semibold whitespace-nowrap active:scale-95 transition disabled:opacity-40"
+          >
+            Buy Now
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

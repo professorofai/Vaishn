@@ -64,11 +64,14 @@ export default function CartDrawer() {
                         <button onClick={() => s.add(p.id, undefined, 1, false)} className="mt-1.5 w-full border border-burgundy py-1.5 text-xs font-semibold text-burgundy transition hover:bg-burgundy hover:text-white">+ Add</button></div>))}
                     </div></div>)}
               </div>
-              <div className="border-t border-gold/30 bg-white px-5 pb-5 pt-4">
+              <div
+                className="border-t border-gold/30 bg-white px-5 pt-4"
+                style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 20px)' }}
+              >
                 {s.coupon ? (
                   <div className="mb-3 flex items-center justify-between bg-ivory px-3 py-2 text-sm"><span className="flex items-center gap-2 font-semibold text-burgundy"><Tag size={15} />{s.coupon} · {COUPONS[s.coupon].label}</span><button onClick={() => { s.removeCoupon(); setMsg(null); }} className="text-xs underline">Remove</button></div>
                 ) : (
-                  <div className="mb-3"><div className="flex"><input value={code} onChange={(e) => setCode(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && apply()} placeholder="Coupon code" className="min-w-0 flex-1 border border-gold/50 px-3 py-2.5 text-sm uppercase outline-none focus:border-burgundy" />
+                  <div className="mb-3"><div className="flex"><input value={code} onChange={(e) => setCode(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && apply()} placeholder="Coupon code" autoCapitalize="characters" autoCorrect="off" spellCheck={false} className="min-w-0 flex-1 border border-gold/50 px-3 py-2.5 text-sm uppercase outline-none focus:border-burgundy" />
                     <button onClick={apply} className="bg-charcoal px-5 text-sm font-semibold text-white hover:bg-burgundy">Apply</button></div>
                     {msg && <p className={`mt-1.5 text-xs ${msg.ok ? 'text-green-700' : 'text-red-700'}`}>{msg.t}</p>}</div>
                 )}

@@ -93,6 +93,9 @@ export default function TrackOrderPage() {
               <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/40" />
               <input
                 type="text"
+                autoCapitalize="characters"
+                autoCorrect="off"
+                enterKeyHint="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Enter Order ID (e.g. VSH-784920) or AWB..."

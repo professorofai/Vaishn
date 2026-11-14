@@ -22,8 +22,7 @@ function Count({ n }: { n: number }) {
 }
 
 export default function Header() {
-  const { count, wishlist, openCart, openSearch, user, logout, walletBalance } = useStore();
-  const [drawer, setDrawer] = useState(false);
+  const { count, wishlist, openCart, openSearch, user, logout, walletBalance, drawerOpen, openDrawer, closeDrawer } = useStore();
   const [acct, setAcct] = useState(false);
 
   const iconBtn =
@@ -32,11 +31,11 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-gold/20 bg-ivory/95 backdrop-blur-md">
-        <div className="container-x relative flex h-[76px] items-center justify-between md:h-[84px]">
+        <div className="container-x relative flex h-[70px] sm:h-[76px] items-center justify-between md:h-[84px]">
           {/* Left Side: Hamburger Menu Button */}
           <div className="flex items-center">
             <button
-              onClick={() => setDrawer(true)}
+              onClick={openDrawer}
               aria-label="Open menu drawer"
               className={iconBtn}
             >
@@ -46,7 +45,7 @@ export default function Header() {
 
           {/* Center: Logo and Brand Name with Tagline (strictly centered) */}
           <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
-            <Logo size={42} />
+            <Logo size={36} className="scale-95 sm:scale-100" />
           </div>
 
           {/* Right Side: Search, Account, Wishlist, Cart */}
@@ -103,7 +102,7 @@ export default function Header() {
                           <button
                             onClick={() => {
                               setAcct(false);
-                              setDrawer(true);
+                              openDrawer();
                             }}
                             className="w-full text-left px-2 py-1.5 text-xs font-medium text-charcoal hover:bg-[#FAF6F0] rounded-lg transition"
                           >
@@ -112,7 +111,7 @@ export default function Header() {
                           <button
                             onClick={() => {
                               setAcct(false);
-                              setDrawer(true);
+                              openDrawer();
                             }}
                             className="w-full text-left px-2 py-1.5 text-xs font-medium text-charcoal hover:bg-[#FAF6F0] rounded-lg transition"
                           >
@@ -143,7 +142,7 @@ export default function Header() {
                         <button
                           onClick={() => {
                             setAcct(false);
-                            setDrawer(true);
+                            openDrawer();
                           }}
                           className="btn-burgundy mb-2 w-full !py-2.5 text-xs"
                         >
@@ -156,7 +155,7 @@ export default function Header() {
               </AnimatePresence>
             </div>
 
-            {/* Wishlist Link (accessible on desktop; on mobile available in drawer) */}
+            {/* Wishlist Link (accessible on desktop; on mobile available in drawer and bottom nav) */}
             <Link
               href="/wishlist"
               className={`${iconBtn} hidden sm:grid`}
@@ -182,7 +181,7 @@ export default function Header() {
       </header>
 
       {/* Slide-out Left Drawer */}
-      <NavDrawer isOpen={drawer} onClose={() => setDrawer(false)} />
+      <NavDrawer isOpen={drawerOpen} onClose={closeDrawer} />
     </>
   );
 }
