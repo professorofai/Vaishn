@@ -4,10 +4,10 @@ import { Instagram, MessageCircle } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#FAF6F0] text-charcoal border-t border-gold/20 pt-16 pb-12">
-      <div className="container-x">
-        {/* 4 Equal Columns expanded across full width */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-6 md:gap-12 lg:gap-16 pb-16">
+    <footer className="bg-[#FAF6F0] text-charcoal border-t border-gold/20 pt-10 pb-6 md:pt-12 md:pb-7">
+      <div className="mx-auto w-full max-w-[1600px] px-5 sm:px-8 md:px-12 lg:px-16">
+        {/* 4 Equal Columns expanded comfortably across width */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-6 md:gap-10 lg:gap-12 pb-8 md:pb-10">
           {/* Column 1: Brand & Social */}
           <div className="space-y-4">
             <div>
@@ -147,7 +147,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Centered Copyright */}
-        <div className="border-t border-charcoal/10 pt-8 text-center">
+        <div className="border-t border-charcoal/10 pt-5 text-center">
           <p className="text-xs text-charcoal/50 tracking-wider">
             © 2026 VAISHN. All Rights Reserved.
           </p>

@@ -3,8 +3,8 @@ import { Sparkles, HeartHandshake, Truck } from 'lucide-react';
 export default function BrandBanner() {
   return (
     <section className="border-y border-gold/30 bg-[#F7EFE6] text-charcoal">
-      <div className="container-x py-8 md:py-10">
-        <div className="flex flex-col items-center justify-between gap-8 lg:flex-row lg:gap-10">
+      <div className="mx-auto w-full max-w-[1600px] px-5 sm:px-8 md:px-12 lg:px-16 py-6 md:py-8">
+        <div className="flex flex-col items-center justify-between gap-6 lg:flex-row lg:gap-10">
           {/* Left: Luxury Emblem Box + "More Than Jewellery. It's Your Expression." */}
           <div className="flex items-center gap-4 sm:gap-5 shrink-0">
             <div className="grid h-14 w-14 sm:h-16 sm:w-16 shrink-0 place-items-center rounded-2xl border border-gold/40 bg-gradient-to-br from-[#FFFDF9] to-[#F1E5D1] p-2.5 shadow-[0_4px_16px_rgba(184,149,88,0.12)]">
