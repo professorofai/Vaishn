@@ -41,7 +41,7 @@ export default function Header() {
       <header className="border-b border-gold/25 bg-[#FAF6F0]/95 backdrop-blur-md">
         <div className="mx-auto flex h-[58px] sm:h-[68px] md:h-[76px] items-center justify-between px-2.5 sm:px-6 md:px-8 max-w-[1600px]">
           {/* Left: Hamburger Menu Button + Categories Label (Symmetric width to right) */}
-          <div className="flex items-center justify-start w-[88px] sm:w-[130px] md:w-[150px] shrink-0">
+          <div className="flex items-center justify-start w-[96px] sm:w-[130px] md:w-[150px] shrink-0">
             <button
               onClick={openDrawer}
               aria-label="Open menu drawer"
@@ -64,7 +64,7 @@ export default function Header() {
           </div>
 
           {/* Right Side: Search, Account, Wishlist, Cart */}
-          <div className="flex items-center justify-end gap-0.5 sm:gap-1.5 w-[88px] sm:w-[130px] md:w-[150px] shrink-0">
+          <div className="flex items-center justify-end gap-0.5 sm:gap-1.5 w-[96px] sm:w-[130px] md:w-[150px] shrink-0">
             {/* Search Button */}
             <button
               onClick={openSearch}
